@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Meus Itens</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="./Style/styleMeusItens.css">
+  <script src="meusItens.js" defer></script>
+</head>
+
+<body>
+  <header class="top-bar">
+    <div class="logo">
+      <img src="./imagens/logo.png" alt="Logo"> <!-- Logo ful left Side askdaskj-->
+    </div>
+
+    <div class="Perfil-Config">
+      <img src="./imagens/perfilIcone.png" alt="Usuário" onclick="abrirPerfil()" style="cursor:pointer;">
+      <img src="./imagens/engrenagemConfig.png" alt="Configurações" onclick="abrirConfiguracoes()"
+        style="cursor:pointer;">
+    </div>
+  </header>
+
+  <!-- Voltar -->
+  <div class="back">
+    <button onclick="voltarInicio()">Voltar</button>
+  </div>
+  <div class="icone-mao-card">
+    <img src="./imagens/maoCaixa.png" alt="Meus Itens!">
+    <h1>Meus Itens</h1>
+    <p>Aqui estão seus itens cadastrados, <span id="usuarioNome"></span>!</p>
+  </div>
+  <br><br>
+
+  <div class="Adcione">
+    <div id="listaPostagens"></div>
+
+    <div class="add-card" onclick="mostrarFormulario()">+</div>
+
+    <div id="popupFormulario" class="modal" style="display:none;">
+      <div class="modal-content">
+
+        <span class="fechar" onclick="fecharFormulario()">&times;</span>
+
+
+        <!-- Formulário para preenchimento meus itens -->
+        <form id="formAdicionar">
+          <h2>Vamos lá!</h2>
+          <br><br>
+          <label>Antes de mais nada, informe sobre o que se trata seu item:</label>
+          <br><br>
+          <div class="radio-group">
+            <label for="tipoProduto">Produto</label>
+            <input type="radio" id="tipoProduto" name="tipoItem" value="Produto" checked />
+          </div>
+
+          <div class="radio-group">
+            <label for="tipoServico">Serviço</label>
+            <input type="radio" id="tipoServico" name="tipoItem" value="Serviço" />
+          </div>
+          <br><br>
+          <label>É doação/voluntário?</label>
+          <br><br>
+          <div class="radio-group">
+            <label for="doacaoSim">Sim</label>
+            <input type="radio" id="doacaoSim" name="isDoacao" value="1" />
+          </div>
+
+          <div class="radio-group">
+            <label for="doacaoNao">Não</label>
+            <input type="radio" id="doacaoNao" name="isDoacao" value="0" checked />
+          </div>
+          <br><br>
+
+          <!-- Lista de Categorias -->
+          <label for="categoria">Escolha a categoria do seu novo item:</label>
+
+          <select id="categoria" name="categoria">
+            <optgroup label="Tecnologia">
+              <option>Tecnologia</option>
+            </optgroup>
+
+            <optgroup label="Celulares e Smartphones">
+              <option>Celulares e Smartphones</option>
+              <option>Acessórios para Celulares (Capas, Películas, Carregadores)</option>
+              <option>Peças para Celulares</option>
+              <option>Smartwatches e Pulseiras</option>
+            </optgroup>
+
+            <optgroup label="Informática">
+              <option>Notebooks e Laptops</option>
+              <option>Computadores de Mesa (Desktops)</option>
+              <option>Componentes e Peças (Processadores, Placas de Vídeo, Memórias RAM)</option>
+              <option>Tablets e Acessórios</option>
+              <option>Impressoras e Suprimentos</option>
+              <option>Monitores</option>
+              <option>Acessórios para PC (Teclados, Mouses, Webcams)</option>
+              <option>Redes e Wi-Fi (Roteadores, Repetidores)</option>
+              <option>PC Gamer</option>
+            </optgroup>
+
+            <optgroup label="Videogames">
+              <option>Consoles (PlayStation, Xbox, Nintendo)</option>
+              <option>Jogos Físicos e Digitais</option>
+              <option>Acessórios para Consoles (Controles, Headsets)</option>
+            </optgroup>
+
+            <optgroup label="Eletrônicos, Áudio e Vídeo">
+              <option>TVs e Smart TVs</option>
+              <option>Equipamentos de Áudio (Home Theaters, Soundbars, Caixas de Som)</option>
+              <option>Fones de Ouvido</option>
+              <option>Câmeras Digitais e Drones</option>
+              <option>Projetores e Telas</option>
+            </optgroup>
+
+            <optgroup label="Casa, Móveis e Decoração">
+              <option>Móveis</option>
+              <option>Móveis para Quarto (Camas, Guarda-Roupas, Cômodas)</option>
+              <option>Móveis para Sala de Estar (Sofás, Racks, Estantes)</option>
+              <option>Móveis para Cozinha e Sala de Jantar (Mesas, Cadeiras, Armários)</option>
+              <option>Móveis para Escritório</option>
+              <option>Decoração</option>
+              <option>Cortinas e Persianas</option>
+              <option>Quadros, Vasos e Enfeites</option>
+              <option>Tapetes</option>
+              <option>Iluminação (Lustres, Luminárias, Lâmpadas)</option>
+            </optgroup>
+
+            <optgroup label="Cama, Mesa e Banho">
+              <option>Roupas de Cama</option>
+              <option>Toalhas de Banho e Rosto</option>
+              <option>Toalhas de Mesa e Acessórios</option>
+            </optgroup>
+
+            <optgroup label="Utilidades Domésticas">
+              <option>Utensílios de Cozinha (Panelas, Talheres, Potes)</option>
+              <option>Organização da Casa (Caixas, Prateleiras, Cabides)</option>
+              <option>Limpeza da Casa</option>
+            </optgroup>
+
+            <optgroup label="Jardim e Área Externa">
+              <option>Móveis de Jardim</option>
+              <option>Ferramentas de Jardinagem</option>
+              <option>Churrasqueiras e Acessórios</option>
+              <option>Piscinas e Acessórios</option>
+            </optgroup>
+
+            <optgroup label="Eletrodomésticos">
+              <option>Geladeiras e Freezers</option>
+              <option>Fogões, Fornos e Cooktops</option>
+              <option>Micro-ondas</option>
+              <option>Lava-louças</option>
+            </optgroup>
+
+            <optgroup label="Pequenos Eletrodomésticos">
+              <option>Cafeteiras</option>
+              <option>Liquidificadores e Batedeiras</option>
+              <option>Fritadeiras Elétricas (Air Fryer)</option>
+              <option>Sanduicheiras e Grills</option>
+            </optgroup>
+
+            <optgroup label="Climatização e Cuidados com a Casa">
+              <option>Ar Condicionado e Climatizadores</option>
+              <option>Ventiladores e Circuladores de Ar</option>
+              <option>Aspiradores de Pó e Robôs</option>
+              <option>Máquinas de Lavar e Secar Roupas</option>
+              <option>Ferros de Passar</option>
+            </optgroup>
+
+            <optgroup label="Moda e Acessórios">
+              <option>Roupas Femininas (Vestidos, Blusas, Calças)</option>
+              <option>Roupas Masculinas (Camisetas, Camisas, Bermudas)</option>
+              <option>Moda Íntima e Lingerie</option>
+              <option>Moda Praia</option>
+              <option>Calçados (Tênis, Sapatos, Sandálias, Botas)</option>
+              <option>Bolsas, Mochilas e Malas</option>
+              <option>Joias e Bijuterias</option>
+              <option>Relógios</option>
+              <option>Óculos de Sol e de Grau</option>
+              <option>Cintos, Chapéus e Bonés</option>
+            </optgroup>
+
+            <optgroup label="Beleza e Cuidado Pessoal">
+              <option>Perfumes Femininos</option>
+              <option>Perfumes Masculinos</option>
+              <option>Maquiagem</option>
+              <option>Rosto (Base, Corretivo, Pó)</option>
+              <option>Olhos (Máscara de Cílios, Sombra, Delineador)</option>
+              <option>Lábios (Batom, Gloss)</option>
+              <option>Cuidados com a Pele</option>
+              <option>Hidratantes Faciais e Corporais</option>
+              <option>Protetores Solares</option>
+              <option>Shampoos e Condicionadores</option>
+              <option>Tratamentos Capilares</option>
+              <option>Modeladores e Finalizadores</option>
+              <option>Barbearia e Cuidados Masculinos</option>
+            </optgroup>
+
+            <optgroup label="Esportes e Fitness">
+              <option>Roupas e Calçados Esportivos</option>
+              <option>Equipamentos de Academia e Musculação</option>
+              <option>Suplementos Alimentares e Vitaminas</option>
+              <option>Ciclismo</option>
+              <option>Bicicletas</option>
+              <option>Acessórios para Ciclistas (Capacetes, Luvas)</option>
+              <option>Futebol, Vôlei e Basquete</option>
+              <option>Lutas e Artes Marciais</option>
+              <option>Esportes Aquáticos</option>
+            </optgroup>
+
+            <optgroup label="Brinquedos e Hobbies">
+              <option>Bonecos e Bonecas</option>
+              <option>Jogos de Tabuleiro e Cartas</option>
+              <option>Blocos de Montar e Construção</option>
+              <option>Veículos de Brinquedo</option>
+              <option>Brinquedos para Bebês</option>
+              <option>Instrumentos Musicais</option>
+              <option>Modelismo e Miniaturas</option>
+              <option>Arte e Papelaria</option>
+              <option>Colecionáveis (Figurinhas, Moedas, Selos)</option>
+            </optgroup>
+
+            <optgroup label="Veículos, Peças e Acessórios">
+              <option>Carros e Caminhonetes</option>
+              <option>Motos</option>
+              <option>Peças para Veículos</option>
+              <option>Motor e Componentes</option>
+              <option>Freios e Suspensão</option>
+              <option>Peças de Lataria</option>
+              <option>Acessórios para Veículos</option>
+              <option>Pneus e Rodas</option>
+              <option>Som e Multimídia Automotivo</option>
+              <option>GPS e Segurança</option>
+              <option>Náutica (Barcos, Lanchas, Jet Skis)</option>
+            </optgroup>
+
+            <optgroup label="Cultura e Entretenimento">
+              <option>Livros, Revistas e HQs</option>
+              <option>Filmes e Séries (DVDs, Blu-ray)</option>
+              <option>Música (CDs, Discos de Vinil)</option>
+              <option>Antiguidades e Peças de Coleção</option>
+            </optgroup>
+
+            <optgroup label="Serviços">
+              <option>Serviços Técnicos (Informática, Conserto de Eletrodomésticos)</option>
+              <option>Aulas e Cursos (Idiomas, Música, Reforço Escolar)</option>
+              <option>Consultoria (Negócios, Marketing, Jurídica)</option>
+              <option>Design e Multimídia (Criação de Logos, Edição de Vídeo)</option>
+              <option>Eventos e Festas (Fotografia, Buffet, Decoração)</option>
+              <option>Reforma e Construção</option>
+            </optgroup>
+
+            <optgroup label="Imóveis">
+              <option>Venda - Apartamentos</option>
+              <option>Venda - Casas e Sobrados</option>
+              <option>Venda - Terrenos e Lotes</option>
+              <option>Aluguel - Apartamentos</option>
+              <option>Aluguel - Casas e Sobrados</option>
+              <option>Imóveis Comerciais</option>
+            </optgroup>
+
+            <optgroup label="Outra Categoria">
+              <option>Outra Categoria</option>
+            </optgroup>
+          </select>
+
+          <br><br>
+          <label for="nomeItem">Dê um nome ao seu Item</label>
+          <input type="text" id="nomeItem" name="nomeItem" placeholder="Nome do item" />
+          <br><br>
+
+          <label for="descricaoItem">Dê uma descrição para seu Item</label>
+          <textarea id="descricaoItem" name="descricaoItem" placeholder="Descrição detalhada"></textarea>
+          <br><br>
+
+          <!-- UFs -->
+          <label for="ufItem">Selecione a UF:</label>
+          <select id="ufItem" name="ufItem" required>
+            <option value="">Selecione...</option>
+            <option value="AC">AC</option>
+            <option value="AL">AL</option>
+            <option value="AP">AP</option>
+            <option value="AM">AM</option>
+            <option value="BA">BA</option>
+            <option value="CE">CE</option>
+            <option value="DF">DF</option>
+            <option value="ES">ES</option>
+            <option value="GO">GO</option>
+            <option value="MA">MA</option>
+            <option value="MT">MT</option>
+            <option value="MS">MS</option>
+            <option value="MG">MG</option>
+            <option value="PA">PA</option>
+            <option value="PB">PB</option>
+            <option value="PR">PR</option>
+            <option value="PE">PE</option>
+            <option value="PI">PI</option>
+            <option value="RJ">RJ</option>
+            <option value="RN">RN</option>
+            <option value="RS">RS</option>
+            <option value="RO">RO</option>
+            <option value="RR">RR</option>
+            <option value="SC">SC</option>
+            <option value="SP">SP</option>
+            <option value="SE">SE</option>
+            <option value="TO">TO</option>
+          </select>
+
+          <br><br>
+
+          <label for="cidadeItem">Informe a cidade:</label>
+          <input type="text" id="cidadeItem" name="cidadeItem" placeholder="Digite o nome da cidade" required />
+          <br><br>
+          <br><br>
+
+
+          <!-- Imagem da Capa e Imagens secundárias -->
+          <label for="imagemCapa">Imagem Principal (Capa):</label>
+          <input type="file" id="imagemCapa" accept="image/*">
+          <img id="previewCapa" style="max-width:150px; display:block; margin-top:5px;">
+          <br><br>
+
+          <label>Imagens Secundárias (5 imagens):</label>
+          <div id="imagensSecundariasContainer">
+            <div class="campoImagemSecundaria">
+              <input type="file" class="imagemSecundaria" accept="image/*">
+              <img class="previewSecundaria" style="max-width:150px; display:block; margin-top:5px;">
+            </div>
+            <div class="campoImagemSecundaria">
+              <input type="file" class="imagemSecundaria" accept="image/*">
+              <img class="previewSecundaria" style="max-width:150px; display:block; margin-top:5px;">
+            </div>
+            <div class="campoImagemSecundaria">
+              <input type="file" class="imagemSecundaria" accept="image/*">
+              <img class="previewSecundaria" style="max-width:150px; display:block; margin-top:5px;">
+            </div>
+            <div class="campoImagemSecundaria">
+              <input type="file" class="imagemSecundaria" accept="image/*">
+              <img class="previewSecundaria" style="max-width:150px; display:block; margin-top:5px;">
+            </div>
+            <div class="campoImagemSecundaria">
+              <input type="file" class="imagemSecundaria" accept="image/*">
+              <img class="previewSecundaria" style="max-width:150px; display:block; margin-top:5px;">
+            </div>
+          </div>
+          <br><br><br><br>
+
+          <label>Insira aqui suas categorias de interesse para seu item (mínimo 1):</label>
+          <div id="interessesContainer" class="categoria-interesse-container"></div>
+          <br><br>
+
+          <button type="button" onclick="salvarItem()">Salvar Item</button>
+        </form>
+
+      </div>
+    </div>
+    <br><br>
+    <br><br>
+
+    <footer class="footer">
+      <div class="footer-top">
+        <div class="footer-section">
+          <h3>Sobre</h3>
+          <p>LibertyHive</p>
+          <p>Plataforma para trocar produtos e serviços de forma segura e prática.</p>
+        </div>
+
+        <div class="footer-section">
+          <h3>Links Úteis</h3>
+          <ul>
+            <li><a href="#">Fale Conosco</a></li>
+            <li><a href="#">Suporte</a></li>
+            <li><a href="#">Denúncias</a></li>
+            <li><a href="#">Termos de Uso</a></li>
+            <li><a href="#">Política de Privacidade</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Redes Sociais</h3>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" title="Facebook">
+              <img src="./imagens/facebook.png" alt="Facebook">
+            </a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" title="Instagram">
+              <img src="./imagens/instagram.png" alt="Instagram">
+            </a>
+            <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" title="Twitter">
+              <img src="./imagens/twitter.png" alt="Twitter">
+            </a>
+            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+              <img src="./imagens/linkedin.png" alt="LinkedIn">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 LibertyHive. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+</body>
+
+</html>
